@@ -14,9 +14,9 @@ app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 
 # Dropbox token from environment variable
-DROPBOX_ACCESS_TOKEN = os.getenv(sl.u.AFxvZKvOxFyJsMUnnZBvlzi7TqgKEIW4Yu6O0dv5IL7cx_7wPaTv5rBzqzn5eubcoYnNOKLwloxw)
+DROPBOX_ACCESS_TOKEN = os.getenv("DROPBOX_ACCESS_TOKEN")
 
-dbx = dropbox.Dropbox(sl.u.AFxvZKvOxFyJsMUnnZBvlzi7TqgKEIW4Yu6O0dv5IL7cx_7wPaTv5rBzqzn5eubcoYnNOKLwloxw)
+dbx = dropbox.Dropbox("DROPBOX_ACCESS_TOKEN")
 
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
