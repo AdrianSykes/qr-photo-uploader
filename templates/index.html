@@ -1,72 +1,61 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-  <title>Photo Upload</title>
-  <style>
-    body { font-family: sans-serif; text-align: center; }
-    video, canvas { max-width: 100%%; }
-  </style>
+  <title>QR Photo Upload</title>
 </head>
 <body>
-  <h1>Take Photo</h1>
-  <video id="video" autoplay></video><br>
-  <button id="snap">Take Photo</button>
-  <button id="upload" disabled>Upload</button>
-  <p id="message"></p>
+  <h2>Upload a Photo ({{ count }}/100)</h2>
+
+  <video id="video" autoplay playsinline width="300"></video><br>
+  <button onclick="switchCamera()">Switch Camera</button>
+  <button onclick="capturePhoto()">Capture Photo</button>
   <canvas id="canvas" style="display:none;"></canvas>
 
   <script>
-    const video = document.getElementById('video');
-    const canvas = document.getElementById('canvas');
-    const snap = document.getElementById('snap');
-    const upload = document.getElementById('upload');
-    const message = document.getElementById('message');
+    let currentFacingMode = "environment";
+    let stream;
 
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(stream => video.srcObject = stream);
+    async function startCamera() {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: currentFacingMode }
+        });
+        document.getElementById('video').srcObject = stream;
+      } catch (err) {
+        alert("Camera access failed: " + err);
+      }
+    }
 
-    let imageData;
+    function switchCamera() {
+      currentFacingMode = currentFacingMode === "user" ? "environment" : "user";
+      startCamera();
+    }
 
-    snap.onclick = () => {
+    function capturePhoto() {
+      const video = document.getElementById('video');
+      const canvas = document.getElementById('canvas');
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
       canvas.getContext('2d').drawImage(video, 0, 0);
-      canvas.style.display = 'block';
-      imageData = canvas.toDataURL('image/jpeg');
-      upload.disabled = false;
-    };
+      canvas.toBlob(blob => {
+        const formData = new FormData();
+        formData.append('photo', blob, 'photo.jpg');
+        fetch('/upload', {
+          method: 'POST',
+          body: formData
+        })
+        .then(res => res.json())
+        .then(data => alert(data.message))
+        .catch(err => alert("Upload failed: " + err));
+      }, 'image/jpeg');
+    }
 
-    upload.onclick = () => {
-      message.textContent = 'Uploading...';
-      fetch('/upload', {
-        method: 'POST',
-        body: (() => {
-          const blob = dataURItoBlob(imageData);
-          const formData = new FormData();
-          formData.append('photo', blob, 'photo.jpg');
-          return formData;
-        })()
-      })
-      .then(res => res.json())
-      .then(data => {
-        message.textContent = data.message;
-        if (data.success) {
-          upload.disabled = true;
-        }
-      });
-
-      function dataURItoBlob(dataURI) {
-        const byteString = atob(dataURI.split(',')[1]);
-        const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-        const ab = new ArrayBuffer(byteString.length);
-        const ia = new Uint8Array(ab);
-        for (let i = 0; i < byteString.length; i++) {
-          ia[i] = byteString.charCodeAt(i);
-        }
-        return new Blob([ab], {type: mimeString});
-      }
-    };
+    startCamera();
   </script>
 </body>
 </html>
+
+
