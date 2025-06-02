@@ -1,5 +1,5 @@
-Flask
-python-dotenv
-cloudinary
-Flask-Session
-Pillow
+Flask==2.3.2
+python-dotenv==1.0.0
+cloudinary==1.32.0
+Flask-Session==0.4.0
+Pillow==10.0.0
