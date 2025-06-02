@@ -1,17 +1,15 @@
-import os
-from flask import Flask, render_template, request, redirect, session, url_for
-from flask_session import Session
-from dotenv import load_dotenv
+from flask import Flask, request, render_template, redirect, make_response
 import cloudinary
 import cloudinary.uploader
+import os
+from dotenv import load_dotenv
+from datetime import timedelta
+import uuid
 
+# Load config
 load_dotenv()
-
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY")
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
 
 cloudinary.config(
     cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
@@ -19,28 +17,32 @@ cloudinary.config(
     api_secret=os.getenv("CLOUDINARY_API_SECRET")
 )
 
-MAX_UPLOADS = 30
+UPLOAD_LIMIT = 30
 
-@app.route("/", methods=["GET", "POST"])
+@app.route('/')
 def index():
-    uploaded = session.get("uploaded", 0)
-    if request.method == "POST":
-        if uploaded >= MAX_UPLOADS:
-            return render_template("index.html", error="Upload limit reached.", uploaded=uploaded, max_uploads=MAX_UPLOADS)
+    uploads = request.cookies.get('uploads')
+    uploads = int(uploads) if uploads else 0
+    return render_template("index.html", remaining=UPLOAD_LIMIT - uploads)
 
-        file = request.files.get("photo")
-        if file:
-            cloudinary.uploader.upload(file, folder="wedding")
-            session["uploaded"] = uploaded + 1
-            return redirect(url_for("success"))
-    return render_template("index.html", uploaded=uploaded, max_uploads=MAX_UPLOADS)
+@app.route('/upload', methods=['POST'])
+def upload():
+    uploads = request.cookies.get('uploads')
+    uploads = int(uploads) if uploads else 0
 
-@app.route("/success")
-def success():
-    return render_template("success.html")
+    if uploads >= UPLOAD_LIMIT:
+        return "Upload limit reached", 403
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)))
+    file = request.files['photo']
+    if file:
+        public_id = str(uuid.uuid4())
+        result = cloudinary.uploader.upload(file, public_id=f"wedding/{public_id}")
+        uploads += 1
+        resp = make_response(redirect('/'))
+        resp.set_cookie('uploads', str(uploads), max_age=60*60*24*365)
+        return resp
+    return "No file uploaded", 400
+
 
 
 
