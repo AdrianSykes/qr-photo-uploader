@@ -1,3 +1,9 @@
+from PIL import Image
+import warnings
+from PIL import ImageFile
+
+warnings.simplefilter('ignore', Image.DecompressionBombWarning)
+Image.MAX_IMAGE_PIXELS = None  # Disable limit completely (use with caution)
 import os
 import io
 from flask import Flask, render_template, request, redirect, session, url_for
