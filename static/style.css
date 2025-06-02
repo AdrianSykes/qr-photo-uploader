@@ -1,0 +1,19 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 2rem;
+  background: #fdf6f0;
+  color: #333;
+}
+h1 {
+  color: #555;
+}
+form {
+  margin-top: 1rem;
+}
+input[type=file] {
+  margin-bottom: 1rem;
+}
+button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
