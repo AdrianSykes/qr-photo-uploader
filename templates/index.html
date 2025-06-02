@@ -1,13 +1,120 @@
-<form action="/" method="post" enctype="multipart/form-data">
-    <input type="file" name="photo" id="photo" required>
-    <button type="submit">Upload</button>
-</form>
-<script>
-document.getElementById("photo").addEventListener("change", function(event) {
-    const file = event.target.files[0];
-    if (file && file.size > 10 * 1024 * 1024) {
-        alert("File too large! Must be under 10MB.");
-        event.target.value = "";
-    }
-});
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Your Photo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .upload-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin: 1.5rem auto;
+            font-size: 1.25rem;
+            padding: 1rem;
+            width: 100%;
+        }
+
+        button {
+            font-size: 1.5rem;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 1rem;
+            background-color: #2563eb;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #1e40af;
+        }
+
+        .info, .error {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .error {
+            color: #dc2626;
+        }
+
+        .preview {
+            margin-top: 1rem;
+        }
+
+        .preview img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <h1>Upload Your Photo</h1>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="photo" id="photo-input" accept="image/*" required>
+            <div class="preview" id="preview"></div>
+            <button type="submit">Upload</button>
+        </form>
+
+        <div class="info">{{ uploaded }} / {{ max_uploads }} uploaded</div>
+    </div>
+
+    <script>
+        const input = document.getElementById('photo-input');
+        const preview = document.getElementById('preview');
+
+        input.addEventListener('change', function () {
+            preview.innerHTML = ''; // Clear previous
+
+            const file = this.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                preview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+</html>
+
