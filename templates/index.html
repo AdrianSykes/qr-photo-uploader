@@ -1,57 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Wedding Photo Upload</title>
-  <link rel="stylesheet" href="/static/style.css" />
+    <title>Upload Your Wedding Photos</title>
 </head>
 <body>
-  <h1>Upload Your Wedding Photos</h1>
-  <p>You have uploaded {{ uploaded }} of {{ max_uploads }} photos.</p>
-  
-  {% if error %}
-    <p class="error">{{ error }}</p>
-  {% endif %}
-
-  {% if uploaded < max_uploads %}
-  <form method="POST" enctype="multipart/form-data" id="upload-form">
-    <input
-      type="file"
-      id="photo-input"
-      name="photo"
-      accept="image/*"
-      capture="environment"
-      required
-    />
-    <button type="submit" id="upload-btn">Upload</button>
-  </form>
-
-  <div id="preview-container" style="display:none;">
-    <p>Preview:</p>
-    <img id="preview-image" src="" alt="Image preview" />
-  </div>
-  {% else %}
-    <p><strong>You’ve reached the maximum of {{ max_uploads }} photos.</strong></p>
-  {% endif %}
-
-  <script>
-    const photoInput = document.getElementById('photo-input');
-    const previewContainer = document.getElementById('preview-container');
-    const previewImage = document.getElementById('preview-image');
-
-    photoInput.addEventListener('change', () => {
-      const file = photoInput.files[0];
-      if (file) {
-        const url = URL.createObjectURL(file);
-        previewImage.src = url;
-        previewContainer.style.display = 'block';
-      } else {
-        previewContainer.style.display = 'none';
-      }
-    });
-  </script>
+    <h1>Upload Your Photos</h1>
+    <p>You can upload {{ remaining }} more photo{{ '' if remaining == 1 else 's' }}.</p>
+    {% if remaining > 0 %}
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="photo" accept="image/*" required>
+        <button type="submit">Upload</button>
+    </form>
+    {% else %}
+    <p>You have reached your upload limit. Thank you!</p>
+    {% endif %}
 </body>
 </html>
-
-
