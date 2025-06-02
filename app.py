@@ -42,6 +42,7 @@ def upload():
         resp.set_cookie('uploads', str(uploads), max_age=60*60*24*365)
         return resp
     return "No file uploaded", 400
+app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
 
 
 
