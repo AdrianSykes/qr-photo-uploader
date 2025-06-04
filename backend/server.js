@@ -1,1 +1,1 @@
-// Placeholder content for backend/server.js
+Placeholder content for backend/server.js
