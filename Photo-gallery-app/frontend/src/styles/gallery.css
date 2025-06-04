@@ -1,0 +1,100 @@
+[span_294](start_span).gallery-container {[span_294](end_span)
+  Padding: 20px; [span_295](start_span)/* Corrected Padding to padding */[span_295](end_span)
+  Max-width: 1200px; [span_296](start_span)/* Corrected Max-width to max-width */[span_296](end_span)
+  Margin: 0 auto; [span_297](start_span)/* Corrected Margin to margin */[span_297](end_span)
+}
+[span_298](start_span).empty-gallery {[span_298](end_span)
+  Text-align: center; [span_299](start_span)/* Corrected Text-align to text-align */[span_299](end_span)
+  Padding: 40px; [span_300](start_span)/* Corrected Padding to padding */[span_300](end_span)
+  Color: #666; [span_301](start_span)/* Corrected Color to color */[span_301](end_span)
+}
+[span_302](start_span).image-grid {[span_302](end_span)
+  Display: grid; [span_303](start_span)/* Corrected Display to display */[span_303](end_span)
+  Grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); [span_304](start_span)/* Corrected Grid-template-columns to grid-template-columns */[span_304](end_span)
+  Gap: 20px; [span_305](start_span)/* Corrected Gap to gap */[span_305](end_span)
+  Margin-top: 20px; [span_306](start_span)/* Corrected Margin-top to margin-top */[span_306](end_span)
+}
+[span_307](start_span).gallery-item {[span_307](end_span)
+  Border-radius: 8px; [span_308](start_span)/* Corrected Border-radius to border-radius */[span_308](end_span)
+  Overflow: hidden; [span_309](start_span)/* Corrected Overflow to overflow */[span_309](end_span)
+  Box-shadow: 0 2px 8px rgba(0,0,0,0.1); [span_310](start_span)/* Corrected Box-shadow to box-shadow */[span_310](end_span)
+  Transition: transform 0.2s; [span_311](start_span)/* Corrected Transition to transition */[span_311](end_span)
+  Position: relative; [span_312](start_span)/* Added for checkbox positioning */[span_312](end_span)
+  Cursor: pointer; [span_313](start_span)/* Added for better UX with lightbox */[span_313](end_span)
+}
+[span_314](start_span).gallery-item:hover {[span_314](end_span)
+  Transform: scale(1.02); [span_315](start_span)/* Corrected Transform to transform */[span_315](end_span)
+}
+[span_316](start_span).gallery-item img {[span_316](end_span)
+  Width: 100%; [span_317](start_span)/* Corrected Width to width */[span_317](end_span)
+  Height: 200px; [span_318](start_span)/* Corrected Height to height */[span_318](end_span)
+  Object-fit: cover; [span_319](start_span)/* Corrected Object-fit to object-fit */[span_319](end_span)
+  Display: block; [span_320](start_span)/* Corrected Display to display */[span_320](end_span)
+}
+[span_321](start_span).image-meta {[span_321](end_span)
+  Padding: 12px; [span_322](start_span)/* Corrected Padding to padding */[span_322](end_span)
+  Background: white; [span_323](start_span)/* Corrected Background to background */[span_323](end_span)
+  Display: flex; [span_324](start_span)/* Corrected Display to display */[span_324](end_span)
+  Justify-content: space-between; [span_325](start_span)/* Corrected Justify-content to justify-content */[span_325](end_span)
+  Font-size: 0.8rem; [span_326](start_span)/* Corrected Font-size to font-size */[span_326](end_span)
+  Color: #555; [span_327](start_span)/* Corrected Color to color */[span_327](end_span)
+}
+[span_328](start_span).loading-spinner {[span_328](end_span)
+  Text-align: center; [span_329](start_span)/* Corrected Text-align to text-align */[span_329](end_span)
+  Padding: 40px; [span_330](start_span)/* Corrected Padding to padding */[span_330](end_span)
+}
+[span_331](start_span)/* Responsive adjustments */[span_331](end_span)
+[span_332](start_span)@media (max-width: 768px) {[span_332](end_span)
+  [span_333](start_span).image-grid {[span_333](end_span)
+    Grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); [span_334](start_span)/* Corrected Grid-template-columns to grid-template-columns */[span_334](end_span)
+  }
+}
+
+[span_335](start_span)/* Add these to your existing styles */[span_335](end_span)
+[span_336](start_span).gallery-header {[span_336](end_span)
+  Display: flex; [span_337](start_span)/* Corrected Display to display */[span_337](end_span)
+  Justify-content: space-between; [span_338](start_span)/* Corrected Justify-content to justify-content */[span_338](end_span)
+  Align-items: center; [span_339](start_span)/* Corrected Align-items to align-items */[span_339](end_span)
+  Margin-bottom: 20px; [span_340](start_span)/* Corrected Margin-bottom to margin-bottom */[span_340](end_span)
+}
+[span_341](start_span).download-btn {[span_341](end_span)
+  Background: #4361ee; [span_342](start_span)/* Corrected Background to background */[span_342](end_span)
+  Color: white; [span_343](start_span)/* Corrected Color to color */[span_343](end_span)
+  Border: none; [span_344](start_span)/* Corrected Border to border */[span_344](end_span)
+  Padding: 8px 16px; [span_345](start_span)/* Corrected Padding to padding */[span_345](end_span)
+  Border-radius: 4px; [span_346](start_span)/* Corrected Border-radius to border-radius */[span_346](end_span)
+  Cursor: pointer; [span_347](start_span)/* Corrected Cursor to cursor */[span_347](end_span)
+  Transition: background 0.2s; [span_348](start_span)/* Corrected Transition to transition */[span_348](end_span)
+}
+[span_349](start_span).download-btn:hover {[span_349](end_span)
+  Background: #3a0ca3; [span_350](start_span)/* Corrected Background to background */[span_350](end_span)
+}
+[span_351](start_span).gallery-item.selected {[span_351](end_span)
+  Outline: 3px solid #4361ee; [span_352](start_span)/* Corrected Outline to outline */[span_352](end_span)
+}
+[span_353](start_span).select-checkbox {[span_353](end_span)
+  Position: absolute; [span_354](start_span)/* Corrected Position to position */[span_354](end_span)
+  Top: 10px; [span_355](start_span)/* Corrected Top to top */[span_355](end_span)
+  Left: 10px; [span_356](start_span)/* Corrected Left to left */[span_356](end_span)
+  [span_357](start_span)width: 24px;[span_357](end_span)
+  [span_358](start_span)height: 24px;[span_358](end_span)
+  Background: rgba(255, 255, 255, 0.9); [span_359](start_span)/* Corrected Background to background */[span_359](end_span)
+  Border: 2px solid #4361ee; [span_360](start_span)/* Corrected Border to border */[span_360](end_span)
+  Border-radius: 4px; [span_361](start_span)/* Corrected Border-radius to border-radius */[span_361](end_span)
+  Display: flex; [span_362](start_span)/* Corrected Display to display */[span_362](end_span)
+  Align-items: center; [span_363](start_span)/* Corrected Align-items to align-items */[span_363](end_span)
+  Justify-content: center; [span_364](start_span)/* Corrected Justify-content to justify-content */[span_364](end_span)
+  z-index: 2; [span_365](start_span)/* Corrected z-index to z-index */[span_365](end_span)
+  [span_366](start_span)cursor: pointer;[span_366](end_span)
+}
+[span_367](start_span).select-checkbox:hover {[span_367](end_span)
+  Background: #f0f0f0; [span_368](start_span)/* Corrected Background to background */[span_368](end_span)
+}
+[span_369](start_span)/* Lightbox overrides */[span_369](end_span)
+[span_370](start_span).rlightbox {[span_370](end_span)
+  z-index: 1000; [span_371](start_span)/* Corrected z-index to z-index */[span_371](end_span)
+}
+[span_372](start_span).rlightbox-toolbar {[span_372](end_span)
+  Background: rgba(0, 0, 0, 0.7) !important; [span_373](start_span)/* Corrected Background to background */[span_373](end_span)
+}
+
