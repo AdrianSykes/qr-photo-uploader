@@ -1,1 +1,1 @@
-// Placeholder content for backend/controllers/adminController.js
+Placeholder content for backend/controllers/adminController.js
