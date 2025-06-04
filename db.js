@@ -1,1 +1,1 @@
-// Placeholder content for backend/config/db.js
+Placeholder content for backend/config/db.js
